@@ -1,5 +1,6 @@
 <script setup>
-import { computed, defineProps, defineEmits } from 'vue'
+import { computed, defineEmits, defineProps } from 'vue'
+import PaginationButtons from '@/components/buttons/PaginationButtons.vue'
 
 const props = defineProps({
   totalItems: { type: Number, required: true },
@@ -16,63 +17,62 @@ function goToPage(page) {
     emits('update:currentPage', page)
   }
 }
+
+const paginationItems = computed(() => {
+  const pages = []
+  const current = props.currentPage
+  const total = totalPages.value
+
+  if (total <= 7) {
+    for (let i = 1; i <= total; i++) pages.push(i)
+  } else {
+    pages.push(1)
+
+    if (current > 3) {
+      pages.push('...')
+    }
+
+    const start = Math.max(2, current - 1)
+    const end = Math.min(total - 1, current + 1)
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i)
+    }
+
+    if (current < total - 2) {
+      pages.push('...')
+    }
+
+    pages.push(total)
+  }
+
+  return pages
+})
 </script>
 
 <template>
-  <nav class="pagination" aria-label="Pagination Navigation">
-    <button
-      :disabled="props.currentPage === 1"
-      @click="goToPage(props.currentPage - 1)"
-      aria-label="Previous page"
+  <nav class="flex items-center space-x-2 mt-4" aria-label="Pagination Navigation">
+    <PaginationButtons :disabled="props.currentPage === 1" @click="goToPage(props.currentPage - 1)">
+      <i class="icon-arrow-left" />
+    </PaginationButtons>
+    <PaginationButtons
+      v-for="(page, index) in paginationItems"
+      :key="index"
+      :selected="page === props.currentPage"
+      @click="typeof page === 'number' && goToPage(page)"
     >
-      Prev
-    </button>
-
-    <button
-      v-for="page in totalPages"
-      :key="page"
-      @click="goToPage(page)"
-      :class="{ active: page === props.currentPage }"
-      aria-current="page"
-    >
-      {{ page }}
-    </button>
-
-    <button
+      <template v-if="page === '...'">
+        <i class="icon-more-item" />
+      </template>
+      <template v-else>
+        {{ page }}
+      </template>
+    </PaginationButtons>
+    <PaginationButtons
       :disabled="props.currentPage === totalPages"
       @click="goToPage(props.currentPage + 1)"
-      aria-label="Next page"
     >
-      Next
-    </button>
+      <i class="icon-arrow-right" />
+    </PaginationButtons>
   </nav>
 </template>
-
-<style scoped>
-.pagination {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  margin: 1rem 0;
-
-  button {
-    background: #eee;
-    border: none;
-    padding: 0.5rem 0.75rem;
-    cursor: pointer;
-    border-radius: 4px;
-
-    &.active {
-      background: #4f46e5;
-      color: white;
-      font-weight: bold;
-      cursor: default;
-    }
-
-    &:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-  }
-}
-</style>

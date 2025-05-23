@@ -1,0 +1,23 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      colors: {
+        primary: '#009595',
+        primary_disabled: '#99e3e3',
+        primary_hover: '#007070',
+        neutral_fg1: '#333333',
+        neutral_fg1_disabled: '#cccccc',
+        neutral_bg1_hover: '#f0f0f0',
+        neutral_bg1_press: '#ebebeb',
+        neutral_bg1: '#ffffff',
+        error: '#d61e20',
+        error_hover: '#ab181a',
+        error_disabled: '#efa5a6',
+        neutral_st2_default: '#cccccc',
+      },
+    },
+  },
+  plugins: [],
+}
