@@ -16,6 +16,7 @@ module.exports = {
         error_hover: '#ab181a',
         error_disabled: '#efa5a6',
         neutral_st2: '#cccccc',
+        neutral_fg1_hover: '#191919',
       },
     },
   },
