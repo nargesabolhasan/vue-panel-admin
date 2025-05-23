@@ -2,7 +2,7 @@
   <button
     :disabled="disabled"
     @click="onClick"
-    class="px-3 py-1 rounded-md w-8 h-8 transition-colors duration-200 flex items-center justify-center"
+    class="px-3 py-1 w-12 h-12 rounded-lg transition-colors duration-200 flex items-center justify-center"
     :class="[
       selected
         ? 'bg-primary text-neutral_bg1 hover:bg-neutral_bg1_hover hover:text-neutral_fg1'

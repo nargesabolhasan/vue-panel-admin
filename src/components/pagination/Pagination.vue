@@ -51,7 +51,10 @@ const paginationItems = computed(() => {
 </script>
 
 <template>
-  <nav class="flex items-center space-x-2 mt-4" aria-label="Pagination Navigation">
+  <nav
+    class="bg-neutral_bg1 flex items-center space-x-2 p-1 border border-neutral_st2 rounded-lg w-fit"
+    aria-label="Pagination Navigation"
+  >
     <PaginationButtons :disabled="props.currentPage === 1" @click="goToPage(props.currentPage - 1)">
       <i class="icon-arrow-left" />
     </PaginationButtons>

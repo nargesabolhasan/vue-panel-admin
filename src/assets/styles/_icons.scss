@@ -4,7 +4,7 @@ $icons: (
   moreItem: 'more.svg',
 );
 
-@mixin icon($name) {
+@mixin icon($name, $size: 24px) {
   background-image: url('../icons/' + map-get($icons, $name));
   background-repeat: no-repeat;
   background-size: contain;
@@ -12,6 +12,6 @@ $icons: (
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 24px;
-  height: 24px;
+  width: $size;
+  height: $size;
 }

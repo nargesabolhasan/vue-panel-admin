@@ -8,11 +8,11 @@ body {
 }
 
 .icon-arrow-left {
-  @include icon(arrowLeft);
+  @include icon(arrowLeft, 16px);
 }
 
 .icon-arrow-right {
-  @include icon(arrowRight);
+  @include icon(arrowRight, 16px);
 }
 
 .icon-more-item {

@@ -1,5 +1,5 @@
 <script setup>
-import SignUpForm from '@/components/SignIn.vue' // adjust the path as needed
+import SignUpForm from '@/components/SignInForm.vue'
 
 // This function receives form data from SignUpForm on submit
 async function handleSignUpSubmit(formData) {
@@ -10,7 +10,7 @@ async function handleSignUpSubmit(formData) {
   // await api.registerUser(formData)
 
   // For demo: simulate delay
-  await new Promise(resolve => setTimeout(resolve, 1000))
+  await new Promise((resolve) => setTimeout(resolve, 1000))
 
   alert('User signed up successfully!')
 }
