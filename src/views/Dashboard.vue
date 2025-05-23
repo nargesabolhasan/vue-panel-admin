@@ -1,4 +1,5 @@
 <template>
+  <NavBar />
   <div class="dashboard-layout">
     <Sidebar :menu="menu" />
     <div class="dashboard-content">
@@ -10,6 +11,7 @@
 <script lang="ts" setup>
 import Sidebar from '@/components/sidebar/Sidebar.vue'
 import { ROUTES } from '@/constants/routes.ts'
+import NavBar from '@/components/NavBar.vue'
 
 const menu = [
   { title: 'Add Article', route: ROUTES.DASHBOARD.ADD_ARTICLE },

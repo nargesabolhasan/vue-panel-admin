@@ -2,7 +2,7 @@
   <button
     :disabled="disabled || loading"
     :class="[
-      'h-10 px-4 py-2 rounded-2xl font-medium flex items-center justify-center transition-all duration-300',
+      'h-10 px-4 py-2 rounded-lg font-medium flex items-center justify-center transition-all duration-300',
       colorClasses,
       { 'opacity-50 cursor-not-allowed': disabled || loading },
     ]"

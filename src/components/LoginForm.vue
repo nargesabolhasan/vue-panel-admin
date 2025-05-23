@@ -4,6 +4,7 @@ import { defineProps } from 'vue'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
 import Button from '@/components/buttons/Button.vue'
+import TextField from '@/components/inputs/textField/TextField.vue'
 
 const props = defineProps({
   onsubmit: {
@@ -46,25 +47,33 @@ const onSubmit = handleSubmit(async (values) => {
 
 <template>
   <form @submit.prevent="onSubmit" novalidate>
-    <div>
-      <label for="email">Email</label>
-      <input id="email" v-model="email" type="email" @blur="emailBlur" />
-      <p class="text-error" v-if="emailError">{{ emailError }}</p>
-    </div>
-
-    <div>
-      <label for="password">Password</label>
-      <input id="password" v-model="password" type="password" @blur="passwordBlur" />
-      <p class="text-error" v-if="passwordError">{{ passwordError }}</p>
-    </div>
+    <TextField
+      id="email"
+      v-model="email"
+      type="email"
+      @blur="emailBlur"
+      :error="emailError"
+      title="Email"
+      placeholder="Enter email"
+    />
+    <TextField
+      id="password"
+      v-model="password"
+      type="password"
+      @blur="passwordBlur"
+      :error="passwordError"
+      title="Password"
+      placeholder="Enter Password"
+    />
     <Button
       title="Save"
       :disabled="loading || !meta.valid"
-      color="secondary"
+      color="primary"
       :loading="loading"
       type="submit"
       spinnerColor="gray"
       spinnerSize="sm"
+      class="w-full"
     />
   </form>
 </template>

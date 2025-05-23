@@ -8,6 +8,7 @@ import AddArticle from '@/views/AddArticle.vue'
 import AllArticles from '@/views/AllArticles.vue'
 
 import { ROUTES, DASHBOARD_ROUTES_NAME } from '@/constants/routes'
+import { AUTH_TOKEN } from '@/constants/constant.ts'
 
 const routes: Array<RouteRecordRaw> = [
   { path: '/', redirect: ROUTES.LOGIN },
@@ -16,17 +17,20 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: ROUTES.DASHBOARD.ROOT,
     component: Dashboard,
+    meta: { requiresAuth: true },
     children: [
       { path: '', redirect: ROUTES.DASHBOARD.ADD_ARTICLE },
       {
         path: ROUTES.DASHBOARD.ADD_ARTICLE,
         name: DASHBOARD_ROUTES_NAME.ADD_ARTICLE,
         component: AddArticle,
+        meta: { requiresAuth: true },
       },
       {
         path: ROUTES.DASHBOARD.ALL_ARTICLES,
         name: DASHBOARD_ROUTES_NAME.ALL_ARTICLES,
         component: AllArticles,
+        meta: { requiresAuth: true },
       },
     ],
   },
@@ -35,6 +39,16 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+})
+
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = !!localStorage.getItem(AUTH_TOKEN)
+
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    next(ROUTES.LOGIN)
+  } else {
+    next()
+  }
 })
 
 export default router
