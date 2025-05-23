@@ -1,0 +1,20 @@
+@import 'icons';
+@import 'colorVariables';
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.icon-arrow-left {
+  @include icon(arrowLeft);
+}
+
+.icon-arrow-right {
+  @include icon(arrowRight);
+}
+
+.icon-more-item {
+  @include icon(moreItem);
+}
