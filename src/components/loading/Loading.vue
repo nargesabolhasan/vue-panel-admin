@@ -7,6 +7,4 @@
   </div>
 </template>
 
-<script setup lang="ts">
-// This is a simple, stateless loading component
-</script>
+<script setup lang="ts"></script>

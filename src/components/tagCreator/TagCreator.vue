@@ -51,7 +51,6 @@ function addTag(newTag: string) {
 <!--const tags = ref<{ title: string }[]>([])-->
 <!--const selectedTags = ref<string[]>([...props.modelValue])-->
 
-<!--// When prop changes, sync internal selectedTags-->
 <!--watch(-->
 <!--  () => props.modelValue,-->
 <!--  (newVal) => {-->

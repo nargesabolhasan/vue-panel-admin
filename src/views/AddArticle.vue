@@ -53,7 +53,7 @@ const { value: tags, errorMessage: tagsError, handleBlur: tagsBlur } = useField<
 
 const submitAll = handleSubmit((values) => {
   loading.value = true
-  console.log('Submitted values:', values) // values.tags contains selected tags
+  console.log('Submitted values:', values)
   loading.value = false
 })
 </script>

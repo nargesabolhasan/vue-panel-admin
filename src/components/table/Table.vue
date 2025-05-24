@@ -5,7 +5,6 @@ const props = defineProps({
   columns: {
     type: Array,
     required: true,
-    // example: [{ key: 'name', label: 'Name' }, { key: 'age', label: 'Age' }]
   },
   data: {
     type: Array,

@@ -3,7 +3,6 @@ import { ref, computed } from 'vue'
 import Pagination from '@/components/pagination/Pagination.vue'
 import Table from '@/components/table/Table.vue'
 
-// Define props using TypeScript
 const props = defineProps<{
   items: Array<{ id: number; name: string; email: string; role: string }>
 }>()
