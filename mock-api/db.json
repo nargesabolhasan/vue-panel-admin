@@ -1,7 +1,59 @@
 {
+  "articles": [
+    {
+      "id": "1",
+      "title": "1How to Learn JavaScript",
+      "description": "An introductory guide to JavaScript",
+      "body": "JavaScript is a versatile programming language used mainly for web development...",
+      "tags": ["JavaScript", "Web Development", "Programming"]
+    },
+    {
+      "id": "2",
+      "title": "Benefits of Meditation",
+      "description": "Explore the mental and physical benefits of meditation",
+      "body": "2Meditation has been practiced for thousands of years and is known to reduce stress...",
+      "tags": ["Meditation", "Health", "Wellness"]
+    },
+    {
+      "id":"3",
+      "title": "3Benefits of Meditation",
+      "description": "Explore the mental and physical benefits of meditation",
+      "body": "Meditation has been practiced for thousands of years and is known to reduce stress...",
+      "tags": ["Meditation", "Health", "Wellness"]
+    },
+    {
+      "id":"4",
+      "title": "Benefits of Meditation",
+      "description": "Explore the mental and physical benefits of meditation",
+      "body": "4Meditation has been practiced for thousands of years and is known to reduce stress...",
+      "tags": ["Meditation", "Health", "Wellness"]
+    }, {
+      "id":"5",
+      "title": "5Benefits of Meditation",
+      "description": "Explore the mental and physical benefits of meditation",
+      "body": "Meditation has been practiced for thousands of years and is known to reduce stress...",
+      "tags": ["Meditation", "Health", "Wellness"]
+    },
+    {
+      "id": "6",
+      "title": "6Benefits of Meditation",
+      "description": "Explore the mental and physical benefits of meditation",
+      "body": "Meditation has been practiced for thousands of years and is known to reduce stress...",
+      "tags": ["Meditation", "Health", "Wellness"]
+    },
+    {
+      "id": "7",
+      "title": "7Benefits of Meditation",
+      "description": "Explore the mental and physical benefits of meditation",
+      "body": "Meditation has been practiced for thousands of years and is known to reduce stress...",
+      "tags": ["Meditation", "Health", "Wellness"]
+    }
+
+  ],
+
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "email": "narges@yahoo.com",
       "password": "123456",
       "username": "narges"

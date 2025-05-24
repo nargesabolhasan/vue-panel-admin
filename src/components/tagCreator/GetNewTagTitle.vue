@@ -19,12 +19,10 @@ import { ref, watch } from 'vue' // Import watch here
 import { useField, useForm } from 'vee-validate'
 import * as yup from 'yup'
 
-// Define emits
 const emit = defineEmits<{
   (e: 'add', value: string): void
 }>()
 
-// Set up the form with VeeValidate
 const { handleSubmit, resetForm } = useForm()
 const {
   value: newTag,
@@ -32,15 +30,12 @@ const {
   validate: validateNewTag,
 } = useField('newTag', yup.string().trim().required('Tag is required'))
 
-// Check if the input is valid
 const isValid = ref(false)
 
-// Watch for changes in the newTag field to update the validity
 watch(newTag, async () => {
   isValid.value = await validateNewTag()
 })
 
-// Add tag handler
 async function handleAddTag() {
   const isValid = await validateNewTag()
   const trimmedTag = newTag.value.trim()
@@ -48,7 +43,7 @@ async function handleAddTag() {
   if (!isValid) return
 
   emit('add', trimmedTag)
-  resetForm() // Reset the form after submission
+  resetForm()
 }
 </script>
 

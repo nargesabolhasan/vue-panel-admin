@@ -32,13 +32,10 @@ async function handleLogin(data: { email: string; password: string }) {
 
     const user = users[0]
 
-    // Save user data in Pinia store
     userStore.setUser({
       username: user.username,
-      // add other fields if needed
     })
-    console.log(userStore.user)
-    // Simulate login by storing fake token
+
     const fakeToken = btoa(`${user.id}:${user.email}`)
     localStorage.setItem(AUTH_TOKEN, fakeToken)
 

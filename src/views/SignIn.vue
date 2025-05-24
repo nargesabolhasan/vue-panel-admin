@@ -1,15 +1,9 @@
 <script setup>
 import SignUpForm from '@/components/SignInForm.vue'
 
-// This function receives form data from SignUpForm on submit
 async function handleSignUpSubmit(formData) {
-  // formData = { username, email, password }
   console.log('SignUp form submitted:', formData)
 
-  // Here you could call your API to register the user:
-  // await api.registerUser(formData)
-
-  // For demo: simulate delay
   await new Promise((resolve) => setTimeout(resolve, 1000))
 
   alert('User signed up successfully!')

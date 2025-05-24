@@ -12,31 +12,31 @@ const props = defineProps({
     required: true,
   },
 })
+
+console.log(props.data)
 </script>
 
 <template>
   <table class="abstract-table">
     <thead>
-    <tr>
-      <th v-for="col in props.columns" :key="col.key">{{ col.label }}</th>
-    </tr>
+      <tr>
+        <th v-for="col in props.columns" :key="col.key">{{ col.label }}</th>
+      </tr>
     </thead>
     <tbody>
-    <tr v-for="(row, idx) in props.data" :key="idx">
-      <td v-for="col in props.columns" :key="col.key">
-        <template v-if="col.render">
-          {{ col.render(row) }}
-        </template>
-        <template v-else>
-          {{ row[col.key] }}
-        </template>
-      </td>
-    </tr>
-    <tr v-if="props.data.length === 0">
-      <td :colspan="props.columns.length" class="empty">
-        No data available.
-      </td>
-    </tr>
+      <tr v-for="(row, idx) in props.data" :key="idx">
+        <td v-for="col in props.columns" :key="col.key">
+          <template v-if="col.render">
+            {{ col.render(row) }}
+          </template>
+          <template v-else>
+            {{ row[col.key] }}
+          </template>
+        </td>
+      </tr>
+      <tr v-if="props.data.length === 0">
+        <td :colspan="props.columns.length" class="empty">No data available.</td>
+      </tr>
     </tbody>
   </table>
 </template>
