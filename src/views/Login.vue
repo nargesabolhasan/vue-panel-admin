@@ -6,31 +6,30 @@
 </template>
 <script lang="ts" setup>
 import LoginForm from '@/components/LoginForm.vue'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { AUTH_TOKEN, USER_API } from '@/constants/constant.ts'
+import { useFetch } from '@/composables/useFetch.ts'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user.ts'
 import { ROUTES } from '@/constants/routes.ts'
+import { showToast } from '@/components/toast/ShowToast.ts'
 
-import { useUserStore } from '@/stores/user'
-
-const loading = ref(false)
 const router = useRouter()
 const userStore = useUserStore()
+const { loading, run } = useFetch<any>()
 
 async function handleLogin(data: { email: string; password: string }) {
-  loading.value = true
-
   try {
-    const url = `${USER_API}?email=${encodeURIComponent(data.email)}&password=${encodeURIComponent(data.password)}`
-    const response = await fetch(url)
-
-    const users = await response.json()
-
-    if (users.length === 0) {
+    const response = await run(
+      `${USER_API}?email=${encodeURIComponent(data.email)}&password=${encodeURIComponent(data.password)}`,
+    )
+    if (!response) {
+      console.error('No response received. Check your credentials or server status.')
+    }
+    if (response.length === 0) {
       throw new Error('Invalid credentials')
     }
 
-    const user = users[0]
+    const user = response[0]
 
     userStore.setUser({
       username: user.username,
@@ -38,14 +37,11 @@ async function handleLogin(data: { email: string; password: string }) {
 
     const fakeToken = btoa(`${user.id}:${user.email}`)
     localStorage.setItem(AUTH_TOKEN, fakeToken)
-
-    alert('Logged in successfully!')
+    showToast('success', 'Logged In', 'Welcome back!')
     router.push(ROUTES.DASHBOARD.ADD_ARTICLE)
-  } catch (err) {
+  } catch (error) {
     alert('Invalid login credentials')
-    console.error(err)
-  } finally {
-    loading.value = false
+    showToast('danger', 'Sign-in Failed!', 'username or password is incorrect.')
   }
 }
 </script>

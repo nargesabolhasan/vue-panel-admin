@@ -7,11 +7,14 @@
     </nav>
     <main class="main-content">
       <RouterView />
+      <Toast />
     </main>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import Toast from '@/components/toast/Toast.vue'
+</script>
 
 <style scoped lang="scss">
 #app {
