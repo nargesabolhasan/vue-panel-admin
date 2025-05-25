@@ -14,12 +14,12 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user.ts'
 import { ROUTES } from '@/constants/routes.ts'
 import { showToast } from '@/components/toast/ShowToast.ts'
-import SignUpForm from '@/components/SignInForm.vue'
 import LinkButton from '@/components/buttons/LinkButton.vue'
 
 const router = useRouter()
 const userStore = useUserStore()
 const { loading, run } = useFetch<any>()
+showToast('success', 'Logged In', 'Welcome back!')
 
 async function handleLogin(data: { email: string; password: string }) {
   try {
@@ -44,7 +44,6 @@ async function handleLogin(data: { email: string; password: string }) {
     showToast('success', 'Logged In', 'Welcome back!')
     router.push(ROUTES.DASHBOARD.ADD_ARTICLE)
   } catch (error) {
-    alert('Invalid login credentials')
     showToast('danger', 'Sign-in Failed!', 'username or password is incorrect.')
   }
 }

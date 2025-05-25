@@ -22,8 +22,8 @@ const variant = ref<'success' | 'danger'>('success')
 
 const variantClass = computed(() => {
   return variant.value === 'success'
-    ? 'bg-success_bg1 text-success_fg1 inline'
-    : 'bg-error_bg1 text-error_fg1'
+    ? 'bg-success_bg1 !text-success_fg1'
+    : 'bg-error_bg1 !text-error_fg1'
 })
 
 onMounted(() => {
