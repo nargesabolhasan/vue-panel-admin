@@ -1,10 +1,5 @@
 <template>
-  <div id="app" class="bg-neutral_bg2_default">
-    <nav class="navbar">
-      <RouterLink to="/login">Login</RouterLink> | <RouterLink to="/sign-in">Sign In</RouterLink> |
-      <RouterLink to="/dashboard">Dashboard</RouterLink> |
-      <RouterLink to="/add-article">Add Article</RouterLink>
-    </nav>
+  <div id="app" class="bg-neutral_bg2_default h-[100vh]">
     <main class="main-content">
       <RouterView />
       <Toast />

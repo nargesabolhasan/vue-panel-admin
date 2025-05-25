@@ -1,7 +1,9 @@
 <template>
-  <div class="login-page">
+  <div class="sign-in-wrapper">
     <h1>Login</h1>
     <LoginForm :loading="loading" :onsubmit="handleLogin" />
+    <span>create Account</span>
+    <LinkButton :to="ROUTES.SIGN_IN" title="Sign up" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -12,6 +14,8 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user.ts'
 import { ROUTES } from '@/constants/routes.ts'
 import { showToast } from '@/components/toast/ShowToast.ts'
+import SignUpForm from '@/components/SignInForm.vue'
+import LinkButton from '@/components/buttons/LinkButton.vue'
 
 const router = useRouter()
 const userStore = useUserStore()

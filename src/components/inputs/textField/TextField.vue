@@ -48,7 +48,7 @@ const sizeClasses = computed(() => {
 
 <template>
   <div class="flex flex-col">
-    <label v-if="title" :for="inputId" class="mb-1 font-medium text-gray-700">
+    <label v-if="title" :for="inputId" class="text-start mb-1 font-medium text-gray-700">
       {{ title }}
     </label>
     <input

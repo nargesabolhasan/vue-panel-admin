@@ -46,7 +46,7 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <form @submit.prevent="onSubmit" novalidate>
+  <form @submit.prevent="onSubmit" novalidate class="form-wrapper">
     <TextField
       id="email"
       v-model="email"

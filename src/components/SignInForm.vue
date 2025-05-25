@@ -1,37 +1,64 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-import { defineProps } from 'vue'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
-
-const props = defineProps({
-  onSubmit: {
-    type: Function,
-    required: true,
-  },
-})
+import TextField from '@/components/inputs/textField/TextField.vue'
+import Button from '@/components/buttons/Button.vue'
+import { useFetch } from '@/composables/useFetch'
+import { showToast } from '@/components/toast/ShowToast.ts'
+import { USER_API } from '@/constants/constant.ts'
 
 const loading = ref(false)
+const { run, error } = useFetch<any>() // Adjust <any> if your API returns typed data
 
 const schema = yup.object({
-  username: yup.string().required('Username is required').min(3, 'Username must be at least 3 characters'),
+  username: yup
+    .string()
+    .required('Username is required')
+    .min(3, 'Username must be at least 3 characters'),
   email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+  password: yup
+    .string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password is required'),
 })
 
 const { handleSubmit, resetForm, meta } = useForm({
   validationSchema: schema,
 })
 
-const { value: username, errorMessage: usernameError, handleBlur: usernameBlur } = useField('username')
+const {
+  value: username,
+  errorMessage: usernameError,
+  handleBlur: usernameBlur,
+} = useField('username')
 const { value: email, errorMessage: emailError, handleBlur: emailBlur } = useField('email')
-const { value: password, errorMessage: passwordError, handleBlur: passwordBlur } = useField('password')
+const {
+  value: password,
+  errorMessage: passwordError,
+  handleBlur: passwordBlur,
+} = useField('password')
 
 const onSubmit = handleSubmit(async (values) => {
   loading.value = true
+
   try {
-    await props.onSubmit(values)
-    resetForm()
+    const response = await run(USER_API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+
+    if (response) {
+      showToast('success', 'Account Created', 'You have signed up successfully.')
+      resetForm()
+    } else {
+      showToast('danger', 'Signup Failed', error || 'Unknown error')
+    }
+  } catch (err) {
+    showToast('danger', 'Error', 'Something went wrong. Please try again.')
   } finally {
     loading.value = false
   }
@@ -39,99 +66,42 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <form @submit.prevent="onSubmit" novalidate class="signup-form">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input id="username" v-model="username" type="text" @blur="usernameBlur" />
-      <p class="error" v-if="usernameError">{{ usernameError }}</p>
-    </div>
-
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input id="email" v-model="email" type="email" @blur="emailBlur" />
-      <p class="error" v-if="emailError">{{ emailError }}</p>
-    </div>
-
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input id="password" v-model="password" type="password" @blur="passwordBlur" />
-      <p class="error" v-if="passwordError">{{ passwordError }}</p>
-    </div>
-
-    <button
+  <form @submit.prevent="onSubmit" novalidate class="form-wrapper">
+    <TextField
+      id="username"
+      v-model="username"
+      type="text"
+      @blur="usernameBlur"
+      title="Username"
+      :error="usernameError"
+    />
+    <TextField
+      id="email"
+      v-model="email"
+      type="email"
+      @blur="emailBlur"
+      title="Email"
+      :error="emailError"
+    />
+    <TextField
+      id="password"
+      v-model="password"
+      type="password"
+      @blur="passwordBlur"
+      title="Password"
+      :error="passwordError"
+    />
+    <Button
       type="submit"
-      class="btn-submit"
       :disabled="loading || !meta.valid"
-    >
-      <span v-if="loading">Loading...</span>
-      <span v-else>Sign Up</span>
-    </button>
+      title="Sign Up"
+      color="primary"
+      :loading="loading"
+      spinnerColor="gray"
+      spinnerSize="sm"
+      class="w-full"
+    />
   </form>
 </template>
 
-<style lang="scss" scoped>
-.signup-form {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 2rem;
-  border-radius: 8px;
-  background: #f7f9fc;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-  .form-group {
-    margin-bottom: 1.5rem;
-
-    label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: #333;
-    }
-
-    input {
-      width: 100%;
-      padding: 0.5rem 0.75rem;
-      border: 1.5px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
-      transition: border-color 0.3s ease;
-
-      &:focus {
-        outline: none;
-        border-color: #3b82f6;
-        box-shadow: 0 0 5px rgba(59, 130, 246, 0.4);
-      }
-    }
-
-    .error {
-      margin-top: 0.25rem;
-      color: #e02424;
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
-  }
-
-  .btn-submit {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #3b82f6;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover:not(:disabled) {
-      background-color: #2563eb;
-    }
-
-    &:disabled {
-      background-color: #94a3b8;
-      cursor: not-allowed;
-    }
-  }
-}
-</style>
+<style lang="scss" scoped></style>
