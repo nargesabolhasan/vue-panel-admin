@@ -19,7 +19,6 @@ import LinkButton from '@/components/buttons/LinkButton.vue'
 const router = useRouter()
 const userStore = useUserStore()
 const { loading, run } = useFetch<any>()
-showToast('success', 'Logged In', 'Welcome back!')
 
 async function handleLogin(data: { email: string; password: string }) {
   try {

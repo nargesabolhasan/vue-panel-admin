@@ -11,8 +11,6 @@ const props = defineProps({
     required: true,
   },
 })
-
-console.log(props.data)
 </script>
 
 <template>
