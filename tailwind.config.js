@@ -26,6 +26,7 @@ module.exports = {
         error_fg1: '#d61e20',
         pt_info_t2_fg1: '#0172b4',
         pt_info_t2_fg1_hover: '#00395A',
+        neutral_st1_default: '#7F7F7F',
       },
     },
   },

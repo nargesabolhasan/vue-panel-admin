@@ -63,7 +63,7 @@ const sizeClasses = computed(() => {
         sizeClasses,
         disabled && 'opacity-45 cursor-not-allowed',
         readonly && 'border-neutral_fg2 cursor-default focus:border-neutral_fg2',
-        error && 'border-error focus:border-error_hover',
+        error && '!border-error focus:border-error_hover',
       ]"
       type="text"
     />

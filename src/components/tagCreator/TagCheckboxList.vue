@@ -1,23 +1,19 @@
 <template>
-  <ul class="tags">
-    <li v-for="(tag, index) in tags" :key="index" class="tag-item">
-      <label>
-        <input
-          type="checkbox"
-          :value="tag.title"
-          :checked="modelValue.includes(tag.title)"
-          @change="onCheckChange(tag.title, $event)"
-          @input="$emit('update:tags', $event.target.value)"
-          name="tags"
-        />
-        {{ tag.title }}
-      </label>
+  <ul class="tags space-y-2">
+    <li v-for="(tag, index) in tags" :key="index">
+      <CheckBox
+        :label="tag.title"
+        :model-value="modelValue.includes(tag.title)"
+        @update:modelValue="(checked) => onCheckboxToggle(tag.title, checked)"
+        :indeterminate="true"
+      />
     </li>
   </ul>
 </template>
 
 <script lang="ts" setup>
 import { defineProps, defineEmits } from 'vue'
+import CheckBox from '@/components/inputs/checkbox/CheckBox.vue'
 
 const props = defineProps({
   tags: {
@@ -34,8 +30,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: string[]): void
 }>()
 
-function onCheckChange(tag: string, event: Event) {
-  const checked = (event.target as HTMLInputElement).checked
+function onCheckboxToggle(tag: string, checked: boolean) {
   let updated = [...props.modelValue]
 
   if (checked && !updated.includes(tag)) {
@@ -47,22 +42,3 @@ function onCheckChange(tag: string, event: Event) {
   emit('update:modelValue', updated)
 }
 </script>
-
-<style scoped lang="scss">
-.tags {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-
-  .tag-item {
-    display: flex;
-    align-items: center;
-
-    label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-  }
-}
-</style>

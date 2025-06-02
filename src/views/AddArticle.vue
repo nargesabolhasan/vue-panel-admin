@@ -1,59 +1,62 @@
 <template>
-  <form @submit.prevent="submitAll" class="new-article-page" novalidate>
-    <AddArticleForm
-      v-model:title="title"
-      v-model:description="description"
-      v-model:body="body"
-      :title-error="titleError"
-      :title-blur="titleBlur"
-      :description-error="descriptionError"
-      :description-blur="descriptionBlur"
-      :body-error="bodyError"
-      :body-blur="bodyBlur"
-    />
+  <form @submit.prevent="submitAll" class="form-wrapper rounded-3xl gap-3" novalidate>
+    <AddArticleForm :fields="['title', 'description', 'body']" />
 
-    <TagCreator v-model:tags="tags" />
+    <TagCreator v-model="selectedTags" />
     <p v-if="tagsError" class="error">{{ tagsError }}</p>
 
-    <button type="submit" :disabled="loading || !meta.valid" class="final-submit-btn">
-      {{ loading ? 'Submitting...' : 'Submit' }}
-    </button>
+    <Button
+      type="submit"
+      :disabled="loading || !meta.valid"
+      title="Submit"
+      color="primary"
+      :loading="loading"
+      spinnerColor="gray"
+      spinnerSize="sm"
+      class="w-fit"
+    />
   </form>
 </template>
 
 <script lang="ts" setup>
-import AddArticleForm from '@/components/AddArticleForm.vue'
-import TagCreator from '@/components/tagCreator/TagCreator.vue'
 import { ref } from 'vue'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
+import AddArticleForm from '@/components/AddArticleForm.vue'
+import TagCreator from '@/components/tagCreator/TagCreator.vue'
+import Button from '@/components/buttons/Button.vue'
 import '@/assets/styles/addNewArticle.scss'
+import { useFetch } from '@/composables/useFetch.ts'
+import { ARTICLES_API } from '@/constants/constant.ts'
+import { showToast } from '@/components/toast/ShowToast.ts'
 
-const loading = ref(false)
+const { loading, run } = useFetch<any>()
 
 const schema = yup.object({
   title: yup.string().trim().required('Title is required'),
   description: yup.string(),
   body: yup.string(),
-  tags: yup.array().of(yup.string()).min(1, 'At least one tag is required'),
+  selectedTags: yup.array().of(yup.string()).min(1, 'At least one tag is required'),
 })
 
 const { handleSubmit, meta } = useForm({
   validationSchema: schema,
 })
 
-const { value: title, errorMessage: titleError, handleBlur: titleBlur } = useField('title')
-const {
-  value: description,
-  errorMessage: descriptionError,
-  handleBlur: descriptionBlur,
-} = useField('description')
-const { value: body, errorMessage: bodyError, handleBlur: bodyBlur } = useField('body')
-const { value: tags, errorMessage: tagsError, handleBlur: tagsBlur } = useField<string[]>('tags')
+const { value: selectedTags, errorMessage: tagsError } = useField<string[]>('selectedTags')
 
-const submitAll = handleSubmit((values) => {
-  loading.value = true
-  console.log('Submitted values:', values)
-  loading.value = false
+const submitAll = handleSubmit(async (values) => {
+  try {
+    await run(`${ARTICLES_API}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+    showToast('success', 'Well done!', 'Article created successfully.')
+  } catch (err) {
+    showToast('success', 'Error', 'Article created failed!')
+  }
 })
 </script>
