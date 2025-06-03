@@ -1,14 +1,19 @@
 <script lang="ts" setup>
-import { useField } from 'vee-validate'
+import { defineProps, type Ref } from 'vue'
 import TextField from '@/components/inputs/textField/TextField.vue'
 
-const titleField = useField<string>('title')
-const descriptionField = useField<string>('description', undefined, {
-  initialValue: '',
-})
-const bodyField = useField<string>('body', undefined, {
-  initialValue: '',
-})
+type FieldReturn<T> = {
+  value: Ref<T>
+  errorMessage: Ref<string | undefined>
+  handleBlur: () => void
+  resetField: (value?: T) => void
+}
+
+const props = defineProps<{
+  titleField: FieldReturn<string>
+  descriptionField: FieldReturn<string>
+  bodyField: FieldReturn<string>
+}>()
 </script>
 
 <template>
@@ -16,29 +21,29 @@ const bodyField = useField<string>('body', undefined, {
     id="title"
     title="Title"
     placeholder="Title"
-    v-model="titleField.value"
+    v-model="props.titleField.value"
     type="text"
-    @blur="titleField.handleBlur"
-    :error="titleField.errorMessage?.value"
+    @blur="props.titleField.handleBlur"
+    :error="props.titleField.errorMessage?.value"
   />
 
   <TextField
     id="description"
     title="Description"
     placeholder="Description"
-    v-model="descriptionField.value"
+    v-model="props.descriptionField.value"
     type="text"
-    @blur="descriptionField.handleBlur"
-    :error="descriptionField.errorMessage?.value"
+    @blur="props.descriptionField.handleBlur"
+    :error="props.descriptionField.errorMessage?.value"
   />
 
   <TextField
     id="body"
     title="Body"
     placeholder="Body"
-    v-model="bodyField.value"
+    v-model="props.bodyField.value"
     type="text"
-    @blur="bodyField.handleBlur"
-    :error="bodyField.errorMessage?.value"
+    @blur="props.bodyField.handleBlur"
+    :error="props.bodyField.errorMessage?.value"
   />
 </template>

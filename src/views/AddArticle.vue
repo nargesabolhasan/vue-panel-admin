@@ -1,6 +1,10 @@
 <template>
   <form @submit.prevent="submitAll" class="form-wrapper rounded-3xl gap-3" novalidate>
-    <AddArticleForm :fields="['title', 'description', 'body']" />
+    <AddArticleForm
+      :titleField="titleField"
+      :descriptionField="descriptionField"
+      :bodyField="bodyField"
+    />
 
     <TagCreator v-model="selectedTags" />
     <p v-if="tagsError" class="error">{{ tagsError }}</p>
@@ -43,6 +47,17 @@ const { handleSubmit, meta, resetForm } = useForm({
 })
 
 const { value: selectedTags, errorMessage: tagsError } = useField<string[]>('selectedTags')
+const titleField = useField<string>('title', undefined, {
+  initialValue: 'defaultTitle',
+})
+
+const descriptionField = useField<string>('description', undefined, {
+  initialValue: 'defaultDescription',
+})
+
+const bodyField = useField<string>('body', undefined, {
+  initialValue: 'defaultBody',
+})
 
 const submitAll = handleSubmit(async (values) => {
   try {
@@ -53,7 +68,14 @@ const submitAll = handleSubmit(async (values) => {
       },
       body: JSON.stringify(values),
     })
-    resetForm()
+    resetForm({
+      values: {
+        title: '',
+        description: '',
+        body: '',
+        selectedTags: [],
+      },
+    })
     selectedTags.value = []
     showToast('success', 'Well done!', 'Article created successfully.')
   } catch (err) {

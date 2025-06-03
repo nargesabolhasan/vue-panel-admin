@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { defineProps, defineEmits, ref, watch, computed } from 'vue'
+import { defineProps, defineEmits, ref, watch, computed, type Ref } from 'vue'
 
 const props = defineProps<{
-  modelValue: string
+  modelValue: string | Ref
   title?: string
   disabled?: boolean
   readonly?: boolean
