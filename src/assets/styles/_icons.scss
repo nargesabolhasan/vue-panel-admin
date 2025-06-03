@@ -2,6 +2,8 @@ $icons: (
   arrowLeft: 'arrowLeft.svg',
   arrowRight: 'arrowRight.svg',
   moreItem: 'more.svg',
+  primary-tick: 'primary-tick.svg',
+  error-hint: 'error-hint.svg',
 );
 
 @mixin icon($name, $size: 24px) {

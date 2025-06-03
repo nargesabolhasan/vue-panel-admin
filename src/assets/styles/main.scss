@@ -19,6 +19,13 @@ body {
   @include icon(moreItem);
 }
 
+.icon-primary-tick {
+  @include icon(primary-tick);
+}
+.icon-error-hint {
+  @include icon(error-hint);
+}
+
 .sign-in-wrapper {
   @apply bg-neutral_bg1 rounded-lg p-3 max-w-[480px] mx-auto mt-10;
 }

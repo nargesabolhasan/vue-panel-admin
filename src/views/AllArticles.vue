@@ -18,6 +18,7 @@ import { useFetch } from '@/composables/useFetch.ts'
 import { onMounted, toRaw } from 'vue'
 import { ARTICLES_API } from '@/constants/constant.ts'
 import { showToast } from '@/components/toast/ShowToast.ts'
+import { usePrompt } from '@/components/promptModal/usePrompt.ts'
 
 export interface Article {
   id: number
@@ -28,6 +29,7 @@ export interface Article {
 }
 
 const { data: articles, loading, run } = useFetch<Article>()
+const showPrompt = usePrompt()
 
 onMounted(async () => {
   try {
@@ -38,13 +40,24 @@ onMounted(async () => {
 })
 
 async function handleDelete(id: number) {
-  try {
-    await fetch(`${ARTICLES_API}/${id}`, { method: 'DELETE' })
-    showToast('success', 'Deleted!', `Article ${id} deleted.`)
-    await run(`${ARTICLES_API}?_page=2&_limit=3`)
-  } catch (err) {
-    showToast('danger', 'Error!', 'Failed to delete article.')
-  }
+  showPrompt({
+    title: 'Delete User',
+    status: 'danger',
+    description: 'sfs',
+    body: 'Are you sure you want to delete this user? This action cannot be undone.',
+    cancelText: 'No',
+    confirmText: 'Yes, Delete',
+    onConfirm: () => {
+      // your delete logic here
+    },
+  })
+  // try {
+  //   await fetch(`${ARTICLES_API}/${id}`, { method: 'DELETE' })
+  //   showToast('success', 'Deleted!', `Article ${id} deleted.`)
+  //   await run(`${ARTICLES_API}?_page=2&_limit=3`)
+  // } catch (err) {
+  //   showToast('danger', 'Error!', 'Failed to delete article.')
+  // }
 }
 
 async function handleEdit(article: Article) {

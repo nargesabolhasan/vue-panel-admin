@@ -66,7 +66,7 @@ const onSubmit = handleSubmit(async (values) => {
       placeholder="Enter Password"
     />
     <Button
-      title="Save"
+      title="Sign in"
       :disabled="loading || !meta.valid"
       color="primary"
       :loading="loading"
