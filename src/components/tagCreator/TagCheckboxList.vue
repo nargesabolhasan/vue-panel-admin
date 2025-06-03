@@ -5,7 +5,6 @@
         :label="tag.title"
         :model-value="modelValue.includes(tag.title)"
         @update:modelValue="(checked) => onCheckboxToggle(tag.title, checked)"
-        :indeterminate="true"
       />
     </li>
   </ul>

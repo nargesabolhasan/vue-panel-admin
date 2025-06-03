@@ -3,7 +3,7 @@ export const ROUTES = {
   SIGN_IN: '/sign-in',
   DASHBOARD: {
     ROOT: '/dashboard',
-    ADD_ARTICLE: '/dashboard/add-article',
+    ADD_ARTICLE: '/dashboard/add-article/:id?',
     ALL_ARTICLES: '/dashboard/all-articles',
   },
 }

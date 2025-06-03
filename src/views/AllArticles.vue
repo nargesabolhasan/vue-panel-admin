@@ -19,6 +19,8 @@ import { onMounted, toRaw } from 'vue'
 import { ARTICLES_API } from '@/constants/constant.ts'
 import { showToast } from '@/components/toast/ShowToast.ts'
 import { usePrompt } from '@/components/promptModal/usePrompt.ts'
+import { DASHBOARD_ROUTES_NAME } from '@/constants/routes.ts'
+import { useRouter } from 'vue-router'
 
 export interface Article {
   id: number
@@ -31,11 +33,11 @@ export interface Article {
 const { data: articles, loading, run } = useFetch<Article>()
 const { loading: deleteLoading, run: runDelete } = useFetch<Article>()
 const { loading: editLoading, run: runEdit } = useFetch<Article>()
-
+const router = useRouter()
 const showPrompt = usePrompt()
 
 const fetchArticles = async () => {
-  await run(`${ARTICLES_API}?_limit=3`)
+  await run(`${ARTICLES_API}?page=1&_limit=3`)
 }
 
 onMounted(async () => {
@@ -67,16 +69,21 @@ async function handleDelete(id: number) {
 }
 
 async function handleEdit(article: Article) {
-  try {
-    await runEdit(`${ARTICLES_API}/${article.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(article),
-    })
-    showToast('success', 'Updated!', `Article ${article.id} updated.`)
-    await fetchArticles()
-  } catch (err) {
-    showToast('danger', 'Error!', 'Failed to update article.')
-  }
+  router.push({
+    name: DASHBOARD_ROUTES_NAME.ADD_ARTICLE,
+    params: { id: article.id },
+  })
+
+  // try {
+  //   await runEdit(`${ARTICLES_API}/${article.id}`, {
+  //     method: 'PUT',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify(article),
+  //   })
+  //   showToast('success', 'Updated!', `Article ${article.id} updated.`)
+  //   await fetchArticles()
+  // } catch (err) {
+  //   showToast('danger', 'Error!', 'Failed to update article.')
+  // }
 }
 </script>

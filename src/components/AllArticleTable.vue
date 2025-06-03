@@ -8,7 +8,7 @@ interface Article {
   title: string
   description: string
   body: string
-  tags: string[]
+  selectedTags: string[]
 }
 
 const props = defineProps<{ items: Article[] }>()
@@ -37,7 +37,7 @@ const columns = [
   {
     key: 'tags',
     label: 'Tags',
-    render: (row: Article) => (Array.isArray(row.tags) ? row.tags.join(', ') : '—'),
+    render: (row: Article) => (Array.isArray(row.selectedTags) ? row.selectedTags.join(', ') : '—'),
   },
   {
     key: 'actions',

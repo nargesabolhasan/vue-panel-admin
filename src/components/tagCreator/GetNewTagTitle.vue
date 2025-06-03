@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleAddTag" class="input-with-button">
+  <form @submit.prevent="handleAddTag" class="flex flex-row gap-1">
     <TextField
       label="Tags"
       v-model="newTag"
@@ -7,7 +7,6 @@
       type="text"
       class="tag-input"
       aria-describedby="tag-error"
-      :error="newTagError"
     />
 
     <Button color="secondary" type="submit" :disabled="!isValid">

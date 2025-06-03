@@ -1,18 +1,12 @@
 <script lang="ts" setup>
 import { defineProps, type Ref } from 'vue'
 import TextField from '@/components/inputs/textField/TextField.vue'
-
-type FieldReturn<T> = {
-  value: Ref<T>
-  errorMessage: Ref<string | undefined>
-  handleBlur: () => void
-  resetField: (value?: T) => void
-}
+import type { FieldContext } from 'vee-validate'
 
 const props = defineProps<{
-  titleField: FieldReturn<string>
-  descriptionField: FieldReturn<string>
-  bodyField: FieldReturn<string>
+  titleField: FieldContext<string>
+  descriptionField: FieldContext<string>
+  bodyField: FieldContext<string>
 }>()
 </script>
 

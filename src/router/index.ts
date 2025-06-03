@@ -26,6 +26,7 @@ const routes: Array<RouteRecordRaw> = [
         component: AddArticle,
         meta: { requiresAuth: true },
       },
+
       {
         path: ROUTES.DASHBOARD.ALL_ARTICLES,
         name: DASHBOARD_ROUTES_NAME.ALL_ARTICLES,

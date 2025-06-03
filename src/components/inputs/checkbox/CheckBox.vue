@@ -12,10 +12,9 @@
       @change="handleChange"
     />
 
-    <!-- Checkmark SVG shown when checked and NOT indeterminate -->
     <svg
       v-if="modelValue && !indeterminate"
-      class="text-2xl pointer-events-none absolute left-1.5 top-1.5 h-2.5 w-2.5 text-white"
+      class="pointer-events-none absolute left-1.5 top-1.5 h-2.5 w-2.5 text-white"
       fill="none"
       stroke="currentColor"
       stroke-width="3"
@@ -25,20 +24,19 @@
       <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
     </svg>
 
-    <!-- Minus SVG shown when indeterminate -->
     <svg
       v-if="indeterminate"
-      class="text-2xl pointer-events-none absolute left-1.5 top-2.5 h-1 w-3 text-white"
+      class="pointer-events-none absolute left-1 top-2 h-2 w-3 text-white"
       fill="none"
       stroke="currentColor"
       stroke-width="3"
       viewBox="0 0 24 24"
       aria-hidden="true"
     >
-      <line x1="5" y1="12" x2="19" y2="12" stroke-linecap="round" />
+      <line x1="1" y1="4" x2="30" y2="4" stroke-linecap="round" />
     </svg>
 
-    <span class="text-sm font-medium text-gray-800">{{ label }}</span>
+    <span class="text-sm font-medium text-neutral_fg1">{{ label }}</span>
   </label>
 </template>
 
