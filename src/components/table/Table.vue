@@ -23,9 +23,7 @@ const props = defineProps({
     <tbody>
       <tr v-for="(row, idx) in props.data" :key="idx">
         <td v-for="col in props.columns" :key="col.key">
-          <template v-if="col.render">
-            {{ col.render(row) }}
-          </template>
+          <component v-if="col.render" :is="{ render: () => col.render(row) }" />
           <template v-else>
             {{ row[col.key] }}
           </template>
