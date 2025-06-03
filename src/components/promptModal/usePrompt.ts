@@ -10,6 +10,7 @@ interface PromptOptions {
   confirmText?: string
   onCancel?: () => void
   onConfirm?: () => void
+  loading?: boolean
 }
 
 export function usePrompt() {
@@ -27,6 +28,7 @@ export function usePrompt() {
       status: options.status ?? 'primary',
       cancelText: options.cancelText ?? 'Cancel',
       confirmText: options.confirmText ?? 'Confirm',
+      loading: options.loading ?? false,
       onCancel: () => {
         visible.value = false
         options.onCancel?.()
