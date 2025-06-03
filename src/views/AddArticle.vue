@@ -19,8 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { useForm, useField } from 'vee-validate'
+import { useField, useForm } from 'vee-validate'
 import * as yup from 'yup'
 import AddArticleForm from '@/components/AddArticleForm.vue'
 import TagCreator from '@/components/tagCreator/TagCreator.vue'
@@ -36,10 +35,10 @@ const schema = yup.object({
   title: yup.string().trim().required('Title is required'),
   description: yup.string(),
   body: yup.string(),
-  selectedTags: yup.array().of(yup.string()).min(1, 'At least one tag is required'),
+  selectedTags: yup.array().of(yup.string()),
 })
 
-const { handleSubmit, meta } = useForm({
+const { handleSubmit, meta, resetForm } = useForm({
   validationSchema: schema,
 })
 
@@ -54,6 +53,8 @@ const submitAll = handleSubmit(async (values) => {
       },
       body: JSON.stringify(values),
     })
+    resetForm()
+    selectedTags.value = []
     showToast('success', 'Well done!', 'Article created successfully.')
   } catch (err) {
     showToast('success', 'Error', 'Article created failed!')

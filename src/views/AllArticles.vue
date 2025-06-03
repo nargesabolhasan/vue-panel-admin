@@ -29,11 +29,18 @@ export interface Article {
 }
 
 const { data: articles, loading, run } = useFetch<Article>()
+const { loading: deleteLoading, run: runDelete } = useFetch<Article>()
+const { loading: editLoading, run: runEdit } = useFetch<Article>()
+
 const showPrompt = usePrompt()
+
+const fetchArticles = async () => {
+  await run(`${ARTICLES_API}?_limit=3`)
+}
 
 onMounted(async () => {
   try {
-    await run(`${ARTICLES_API}?_page=2&_limit=3`)
+    await fetchArticles()
   } catch (err) {
     showToast('danger', 'Error!', 'Failed to fetch articles.')
   }
@@ -41,34 +48,33 @@ onMounted(async () => {
 
 async function handleDelete(id: number) {
   showPrompt({
-    title: 'Delete User',
+    title: 'Delete Article',
     status: 'danger',
-    description: 'sfs',
-    body: 'Are you sure you want to delete this user? This action cannot be undone.',
-    cancelText: 'No',
-    confirmText: 'Yes, Delete',
-    onConfirm: () => {
-      // your delete logic here
+    body: 'Are you sure you want to delete this article?',
+    cancelText: 'Cancel',
+    confirmText: 'Delete',
+    loading: deleteLoading?.value,
+    onConfirm: async () => {
+      try {
+        await runDelete(`${ARTICLES_API}/${id}`, { method: 'DELETE' })
+        showToast('success', 'Deleted!', `Article ${id} deleted.`)
+        await fetchArticles()
+      } catch (err) {
+        showToast('danger', 'Error!', 'Failed to delete article.')
+      }
     },
   })
-  // try {
-  //   await fetch(`${ARTICLES_API}/${id}`, { method: 'DELETE' })
-  //   showToast('success', 'Deleted!', `Article ${id} deleted.`)
-  //   await run(`${ARTICLES_API}?_page=2&_limit=3`)
-  // } catch (err) {
-  //   showToast('danger', 'Error!', 'Failed to delete article.')
-  // }
 }
 
 async function handleEdit(article: Article) {
   try {
-    await fetch(`${ARTICLES_API}/${article.id}`, {
+    await runEdit(`${ARTICLES_API}/${article.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(article),
     })
     showToast('success', 'Updated!', `Article ${article.id} updated.`)
-    await run(`${ARTICLES_API}?_page=2&_limit=3`)
+    await fetchArticles()
   } catch (err) {
     showToast('danger', 'Error!', 'Failed to update article.')
   }

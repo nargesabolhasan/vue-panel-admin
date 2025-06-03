@@ -71,6 +71,7 @@ const columns = [
     <Table :columns="columns" :data="paginatedData" />
 
     <Pagination
+      v-if="props.items.length > pageSize"
       :totalItems="props.items.length"
       :pageSize="pageSize"
       :currentPage="currentPage"
