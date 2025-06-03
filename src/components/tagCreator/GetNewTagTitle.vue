@@ -1,16 +1,18 @@
-<!-- src/components/AddTag.vue -->
 <template>
   <form @submit.prevent="handleAddTag" class="input-with-button">
-    <input
+    <TextField
+      label="Tags"
       v-model="newTag"
-      placeholder="Type a tag"
+      placeholder="New tag"
       type="text"
       class="tag-input"
-      :class="{ invalid: newTagError }"
       aria-describedby="tag-error"
+      :error="newTagError"
     />
-    <button type="submit" class="add-tag-btn" aria-label="Add tag" :disabled="!isValid">✅</button>
-    <p v-if="newTagError" id="tag-error" class="error">{{ newTagError }}</p>
+
+    <Button color="secondary" type="submit" :disabled="!isValid">
+      <i class="icon-primary-tick" />
+    </Button>
   </form>
 </template>
 
@@ -18,22 +20,25 @@
 import { ref, watch } from 'vue'
 import { useField, useForm } from 'vee-validate'
 import * as yup from 'yup'
+import Button from '@/components/buttons/Button.vue'
+import TextField from '@/components/inputs/textField/TextField.vue'
 
 const emit = defineEmits<{
   (e: 'add', value: string): void
 }>()
 
-const { handleSubmit, resetForm } = useForm()
+const { resetForm } = useForm()
 const {
   value: newTag,
   errorMessage: newTagError,
   validate: validateNewTag,
-} = useField('newTag', yup.string().trim().required('Tag is required'))
+} = useField<string>('newTag', yup.string().trim().required('fill tag title'))
 
 const isValid = ref(false)
 
 watch(newTag, async () => {
-  isValid.value = await validateNewTag()
+  const result = await validateNewTag()
+  isValid.value = result.valid
 })
 
 async function handleAddTag() {
@@ -46,47 +51,3 @@ async function handleAddTag() {
   resetForm()
 }
 </script>
-
-<style scoped>
-.input-with-button {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.tag-input {
-  flex-grow: 1;
-  padding: 8px;
-  font-size: 16px;
-  border: 2px solid #ccc;
-  border-radius: 6px;
-
-  &.invalid {
-    border-color: #e3342f;
-  }
-}
-
-.add-tag-btn {
-  padding: 8px 12px;
-  font-size: 18px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #218838;
-  }
-
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-}
-
-.error {
-  color: #e3342f;
-  font-size: 0.9rem;
-  margin-top: -0.5rem;
-}
-</style>

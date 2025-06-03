@@ -1,56 +1,19 @@
 {
   "articles": [
     {
-      "id": "7",
-      "title": "7Benefits of Meditation",
-      "description": "Explore the mental and physical benefits of meditation",
-      "body": "Meditation has been practiced for thousands of years and is known to reduce stress...",
-      "tags": [
-        "Meditation",
-        "Health",
-        "Wellness"
-      ]
-    },
-    {
-      "id": "e4ed",
-      "title": "new tag",
-      "description": "first tag i create",
-      "body": "start to generate new one "
-    },
-    {
-      "id": "289e",
-      "selectedTags": [
-        "new item",
-        "feature"
-      ],
-      "title": "new tag",
-      "description": "first tag i create",
-      "body": "start to generate new one "
-    },
-    {
-      "id": "d7b3",
-      "selectedTags": [
-        "items"
-      ],
-      "title": "new Tag",
-      "description": "add new tag",
+      "id": "e99d",
+      "title": "sfsdfsf",
+      "description": "sfdsfsdf",
       "body": ""
     },
     {
-      "id": "3812",
+      "id": "7af1",
       "selectedTags": [
-        "new tag",
-        "other tag"
+        "444"
       ],
-      "title": "new article",
-      "description": "this description",
-      "body": "body"
-    },
-    {
-      "id": "29d7",
-      "title": "aaaaaaaaaaaa",
-      "description": "sssssssss",
-      "body": "aaa"
+      "title": "dsfsdf",
+      "description": "sssssssssssssss",
+      "body": ""
     }
   ],
   "users": [

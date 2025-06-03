@@ -26,9 +26,15 @@
           </span>
           <p class="text-gray-700">{{ body }}</p>
         </div>
-        <div class="flex justify-end space-x-3 px-[24px] py-[16px] !mt-0">
+        <div
+          :class="[
+            'flex gap-4 px-[24px] py-[16px] !mt-0',
+            isDanger ? 'flex-row-reverse justify-start' : 'flex-row justify-end',
+          ]"
+        >
           <Button :title="cancelText" color="secondary" @click="handleCancel" />
           <Button
+            :loading="loading"
             :title="confirmText"
             :color="isDanger ? 'danger' : 'primary'"
             @click="handleConfirm"
@@ -51,6 +57,7 @@ const props = defineProps<{
   status: 'danger' | 'primary'
   cancelText: string
   confirmText: string
+  loading?: boolean
 }>()
 
 const emit = defineEmits(['confirm', 'cancel'])

@@ -11,7 +11,9 @@
       <Spinner :size="spinnerSize ?? 'md'" :color="spinnerColor ?? 'gray'" />
     </template>
     <template v-else>
-      <span>{{ title }}</span>
+      <slot>
+        <span>{{ title }}</span>
+      </slot>
     </template>
   </button>
 </template>
@@ -21,7 +23,7 @@ import { computed } from 'vue'
 import Spinner from '@/components/spinner/Spinner.vue'
 
 const props = defineProps<{
-  title: string
+  title?: string
   disabled?: boolean
   color?: 'primary' | 'secondary' | 'danger'
   loading?: boolean
