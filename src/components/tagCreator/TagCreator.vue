@@ -1,5 +1,5 @@
 <template>
-  <div class="tag-manager">
+  <div class="form-wrapper h-fit">
     <GetNewTagTitle @add="addTag" />
     <TagCheckboxList
       :tags="tags"
@@ -20,7 +20,9 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:modelValue'])
 
-const tags = ref<{ title: string }[]>([])
+const initTag = [{ title: 'todo' }, { title: 'done' }, { title: 'pending' }]
+
+const tags = ref<{ title: string }[]>(initTag)
 
 function addTag(newTag: string) {
   if (!tags.value.some((t) => t.title.toLowerCase() === newTag.toLowerCase())) {
@@ -32,10 +34,3 @@ function updateSelectedTags(val: string[]) {
   emit('update:modelValue', val)
 }
 </script>
-
-<style scoped>
-.tag-manager {
-  max-width: 400px;
-  margin: auto;
-}
-</style>

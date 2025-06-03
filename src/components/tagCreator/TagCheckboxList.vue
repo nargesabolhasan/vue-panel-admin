@@ -1,5 +1,5 @@
 <template>
-  <ul class="tags space-y-2">
+  <ul class="border border-neutral_st2 p-3 rounded-xl space-y-2">
     <li v-for="(tag, index) in tags" :key="index">
       <CheckBox
         :label="tag.title"

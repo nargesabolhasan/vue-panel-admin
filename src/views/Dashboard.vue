@@ -30,5 +30,6 @@ const menu = [
   padding: 1rem;
   background-color: #f7fafc;
   overflow-y: auto;
+  @apply bg-neutral_bg2_default;
 }
 </style>

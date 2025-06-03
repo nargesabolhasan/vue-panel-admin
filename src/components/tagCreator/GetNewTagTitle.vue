@@ -1,7 +1,7 @@
 <template>
-  <form @submit.prevent="handleAddTag" class="flex flex-row gap-1">
+  <form @submit.prevent="handleAddTag" class="flex flex-row gap-1 items-end">
     <TextField
-      label="Tags"
+      title="Tags"
       v-model="newTag"
       placeholder="New tag"
       type="text"
