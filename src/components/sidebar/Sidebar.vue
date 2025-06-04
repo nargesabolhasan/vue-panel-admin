@@ -1,20 +1,65 @@
 <template>
-  <div class="sidebar-layout">
-    <aside class="sidebar">
-      <nav>
-        <ul>
-          <li v-for="item in menu" :key="item.route" class="nav-item">
-            <router-link :to="item.route" class="nav-link" active-class="active">
-              {{ item.title }}
-            </router-link>
-          </li>
-        </ul>
-      </nav>
-    </aside>
-  </div>
+  <!-- Mobile Header -->
+  <header class="md:hidden flex items-center justify-between px-4 py-3 bg-neutral_bg1 shadow">
+    <h1 class="text-lg font-bold text-neutral_fg1">Dashboard</h1>
+    <button @click="toggleMenu" class="text-neutral_fg2 focus:outline-none">
+      <svg
+        v-if="!menuOpen"
+        class="h-6 w-6"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg
+        v-else
+        class="h-6 w-6"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </header>
+
+  <!-- Mobile Menu -->
+  <nav v-if="menuOpen" class="md:hidden bg-neutral_bg1 border-t">
+    <ul class="flex flex-col">
+      <MenuLink
+        v-for="item in menu"
+        :key="item.route"
+        :item="item"
+        wrapper-class="border-b border-neutral_st2_hover"
+        link-class="px-4 py-2"
+        @click="menuOpen = false"
+      />
+    </ul>
+  </nav>
+
+  <!-- Desktop Sidebar -->
+  <aside class="hidden md:block w-64 bg-neutral_bg1">
+    <nav>
+      <ul>
+        <MenuLink
+          v-for="item in menu"
+          :key="item.route"
+          :item="item"
+          wrapper-class="nav-item"
+          link-class="h-[40px]"
+        />
+      </ul>
+    </nav>
+  </aside>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
+import MenuLink from '@/components/sidebar/MenuLink.vue'
+
 interface MenuItem {
   title: string
   route: string
@@ -23,35 +68,10 @@ interface MenuItem {
 const props = defineProps<{
   menu: MenuItem[]
 }>()
-</script>
 
-<style scoped lang="scss">
-.sidebar-layout {
-  width: 250px;
-  background-color: #2d3748;
-  color: white;
-  height: 100vh;
-  padding: 1rem;
+const menuOpen = ref(false)
 
-  .nav-item {
-    margin-bottom: 1rem;
-
-    .nav-link {
-      display: block;
-      padding: 0.5rem 1rem;
-      border-radius: 0.375rem;
-      color: white;
-      text-decoration: none;
-      transition: background 0.3s;
-
-      &:hover {
-        background-color: #4a5568;
-      }
-
-      &.active {
-        background-color: #4a5568;
-      }
-    }
-  }
+function toggleMenu() {
+  menuOpen.value = !menuOpen.value
 }
-</style>
+</script>

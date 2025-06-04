@@ -1,15 +1,15 @@
 <template>
-  <form @submit.prevent="handleAddTag" class="flex flex-row gap-1 items-end">
+  <form @submit.prevent="handleAddTag" class="w-full flex flex-row gap-1 items-end">
     <TextField
       title="Tags"
       v-model="newTag"
       placeholder="New tag"
       type="text"
-      class="tag-input"
       aria-describedby="tag-error"
+      class="min-w-[180px] w-full"
     />
 
-    <Button color="secondary" type="submit" :disabled="!isValid">
+    <Button color="secondary" type="submit" :disabled="!isValid" class="w-fit">
       <i class="icon-primary-tick" />
     </Button>
   </form>

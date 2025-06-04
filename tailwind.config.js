@@ -28,6 +28,7 @@ module.exports = {
         pt_info_t2_fg1_hover: '#00395A',
         neutral_st1_default: '#7F7F7F',
         neutral_st3_default: '#E6E6E6',
+        primary_bg1_hover: '#D6F4F4',
       },
     },
   },

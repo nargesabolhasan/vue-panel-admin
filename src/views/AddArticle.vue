@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submitAll" class="flex flex-col h-full" novalidate>
-    <div class="h-full flex flex-row gap-6 bg-neutral_bg2_default">
+    <div class="h-full flex flex-col lg:flex-row gap-6 bg-neutral_bg2_default">
       <AddArticleForm
         :titleField="titleField"
         :descriptionField="descriptionField"

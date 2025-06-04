@@ -1,8 +1,8 @@
 <template>
   <NavBar />
-  <div class="dashboard-layout">
-    <Sidebar :menu="menu" />
-    <div class="dashboard-content">
+  <div class="flex grow flex-col md:flex-row md:justify-between">
+    <Sidebar :menu="menu" class="w-64 hidden md:block" />
+    <div class="flex-1 p-4 bg-neutral_bg2_default overflow-y-auto">
       <router-view />
     </div>
   </div>
@@ -18,18 +18,3 @@ const menu = [
   { title: 'All Articles', route: ROUTES.DASHBOARD.ALL_ARTICLES },
 ]
 </script>
-
-<style scoped lang="scss">
-.dashboard-layout {
-  display: flex;
-  height: 100vh;
-}
-
-.dashboard-content {
-  flex: 1;
-  padding: 1rem;
-  background-color: #f7fafc;
-  overflow-y: auto;
-  @apply bg-neutral_bg2_default;
-}
-</style>

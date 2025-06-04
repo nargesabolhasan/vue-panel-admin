@@ -66,8 +66,8 @@ const columns = [
 </script>
 
 <template>
-  <section class="dashboard-page">
-    <h1>Dashboard</h1>
+  <section class="form-wrapper">
+    <h2>All Posts</h2>
     <Table :columns="columns" :data="paginatedData" />
 
     <Pagination
@@ -79,11 +79,3 @@ const columns = [
     />
   </section>
 </template>
-
-<style scoped>
-.dashboard-page {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 1rem;
-}
-</style>
