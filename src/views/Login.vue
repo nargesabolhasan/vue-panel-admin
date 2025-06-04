@@ -1,9 +1,11 @@
 <template>
-  <div class="sign-in-wrapper">
-    <h1>Login</h1>
+  <div class="sign-in-wrapper flex flex-col">
+    <h2 class="p-4 border-b">Login</h2>
     <LoginForm :loading="loading" :onsubmit="handleLogin" />
-    <span>create Account</span>
-    <LinkButton :to="ROUTES.SIGN_IN" title="Sign up" />
+    <span class="mx-auto inline-block">
+      <span>create Account</span>
+      <LinkButton :to="ROUTES.SIGN_IN" title="Sign up"
+    /></span>
   </div>
 </template>
 <script lang="ts" setup>

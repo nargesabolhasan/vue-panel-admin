@@ -1,7 +1,7 @@
 <template>
   <!-- Mobile Header -->
   <header class="md:hidden flex items-center justify-between px-4 py-3 bg-neutral_bg1 shadow">
-    <h1 class="text-lg font-bold text-neutral_fg1">Dashboard</h1>
+    <h2 class="text-lg font-bold text-neutral_fg1">Dashboard</h2>
     <button @click="toggleMenu" class="text-neutral_fg2 focus:outline-none">
       <svg
         v-if="!menuOpen"

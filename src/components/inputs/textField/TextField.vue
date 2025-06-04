@@ -2,7 +2,7 @@
 import { defineProps, defineEmits, ref, watch, computed, type Ref } from 'vue'
 
 const props = defineProps<{
-  modelValue: string | Ref
+  modelValue: string | Ref | unknown
   type?: string
   title?: string
   disabled?: boolean
