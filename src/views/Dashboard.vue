@@ -14,7 +14,7 @@ import { ROUTES } from '@/constants/routes.ts'
 import NavBar from '@/components/NavBar.vue'
 
 const menu = [
-  { title: 'Add Article', route: ROUTES.DASHBOARD.ADD_ARTICLE },
   { title: 'All Articles', route: ROUTES.DASHBOARD.ALL_ARTICLES },
+  { title: 'Add Article', route: ROUTES.DASHBOARD.ADD_ARTICLE },
 ]
 </script>
