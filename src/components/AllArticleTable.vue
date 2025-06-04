@@ -18,7 +18,7 @@ const emit = defineEmits<{
   (e: 'delete-article', id: number): void
 }>()
 
-const pageSize = 2
+const pageSize = 3
 const currentPage = ref(1)
 
 const paginatedData = computed(() => {
