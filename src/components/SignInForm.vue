@@ -7,9 +7,13 @@ import Button from '@/components/buttons/Button.vue'
 import { useFetch } from '@/composables/useFetch'
 import { showToast } from '@/components/toast/ShowToast.ts'
 import { USER_API } from '@/constants/constant.ts'
+import { DASHBOARD_ROUTES_NAME, ROUTES } from '@/constants/routes.ts'
+import { useRouter } from 'vue-router'
 
 const loading = ref(false)
 const { run, error } = useFetch<any>() // Adjust <any> if your API returns typed data
+
+const router = useRouter()
 
 const schema = yup.object({
   username: yup
@@ -54,6 +58,7 @@ const onSubmit = handleSubmit(async (values) => {
     if (response) {
       showToast('success', 'Account Created', 'You have signed up successfully.')
       resetForm()
+      router.push(ROUTES.LOGIN)
     } else {
       showToast('danger', 'Signup Failed', error || 'Unknown error')
     }
