@@ -38,12 +38,13 @@ async function handleLogin(data: { email: string; password: string }) {
 
     userStore.setUser({
       username: user.username,
+      id: user.id,
     })
 
     const fakeToken = btoa(`${user.id}:${user.email}`)
     localStorage.setItem(AUTH_TOKEN, fakeToken)
     showToast('success', 'Logged In', 'Welcome back!')
-    router.push(ROUTES.DASHBOARD.ADD_ARTICLE)
+    router.push(ROUTES.DASHBOARD.ALL_ARTICLES)
   } catch (error) {
     showToast('danger', 'Sign-in Failed!', 'username or password is incorrect.')
   }

@@ -24,12 +24,15 @@ import { showToast } from '@/components/toast/ShowToast.ts'
 import { useRoute } from 'vue-router'
 import { onMounted } from 'vue'
 import type { Article } from '@/views/AllArticles.vue'
+import { useUserStore } from '@/stores/user.ts'
 
 const { loading, run } = useFetch<any>()
 const { loading: editLoading, run: runEdit } = useFetch<Article>()
 const route = useRoute()
+
 const articleId = route.params.id as string | undefined
-const isEditMode = !!articleId
+const isEditMode = articleId !== ':id'
+console.log(articleId)
 
 const schema = yup.object({
   title: yup.string().trim().required('Title is required'),
@@ -46,6 +49,8 @@ const { value: selectedTags } = useField<string[]>('selectedTags')
 const titleField = useField<string>('title', undefined)
 const descriptionField = useField<string>('description')
 const bodyField = useField<string>('body', undefined)
+
+const userStore = useUserStore()
 
 const loadArticle = async () => {
   if (!articleId) return
@@ -88,7 +93,7 @@ const submitAll = handleSubmit(async (values) => {
       await runEdit(`${ARTICLES_API}/${articleId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ ...values, userId: userStore.user?.id }),
       })
       showToast('success', 'Updated!', `This Article updated.`)
     } catch (err) {
@@ -101,7 +106,7 @@ const submitAll = handleSubmit(async (values) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ ...values, userId: userStore.user?.id }),
       })
       resetForm({
         values: {

@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Dashboard,
     meta: { requiresAuth: true },
     children: [
-      { path: '', redirect: ROUTES.DASHBOARD.ADD_ARTICLE },
+      { path: '', redirect: ROUTES.DASHBOARD.ALL_ARTICLES },
       {
         path: ROUTES.DASHBOARD.ADD_ARTICLE,
         name: DASHBOARD_ROUTES_NAME.ADD_ARTICLE,

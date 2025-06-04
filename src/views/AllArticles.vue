@@ -21,6 +21,7 @@ import { showToast } from '@/components/toast/ShowToast.ts'
 import { usePrompt } from '@/components/promptModal/usePrompt.ts'
 import { DASHBOARD_ROUTES_NAME } from '@/constants/routes.ts'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user.ts'
 
 export interface Article {
   id: number
@@ -35,9 +36,10 @@ const { loading: deleteLoading, run: runDelete } = useFetch<Article>()
 
 const router = useRouter()
 const showPrompt = usePrompt()
+const userStore = useUserStore()
 
 const fetchArticles = async () => {
-  await run(`${ARTICLES_API}?page=1&_limit=3`)
+  await run(`${ARTICLES_API}?userId=${userStore.user?.id}`)
 }
 
 onMounted(async () => {
