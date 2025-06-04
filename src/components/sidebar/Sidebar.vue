@@ -41,7 +41,7 @@
   </nav>
 
   <!-- Desktop Sidebar -->
-  <aside class="hidden md:block w-64 bg-neutral_bg1">
+  <aside class="hidden md:block w-64 bg-neutral_bg1 p-4">
     <nav>
       <ul>
         <MenuLink

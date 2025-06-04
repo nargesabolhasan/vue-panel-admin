@@ -61,8 +61,8 @@ const columns = [
 </script>
 
 <template>
-  <section class="form-wrapper">
-    <h2>All Posts</h2>
+  <section class="form-wrapper flex flex-col items-center md:items-end gap-4">
+    <h2 class="self-start">All Posts</h2>
     <Table :columns="columns" :data="paginatedData" />
 
     <Pagination

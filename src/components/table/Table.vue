@@ -15,8 +15,8 @@ const props = defineProps({
 
 <template>
   <!-- Desktop Table -->
-  <div class="hidden md:block overflow-x-auto">
-    <table class="min-w-full divide-y divide-neutral_st2_hover">
+  <div class="hidden md:block overflow-x-auto w-full">
+    <table class="min-w-full divide-y divide-neutral_st2_hover border-b border-neutral_st2_hover">
       <thead class="bg-neutral_bg2_default">
         <tr>
           <th
@@ -55,7 +55,7 @@ const props = defineProps({
   </div>
 
   <!-- Mobile Card View -->
-  <div class="md:hidden flex flex-col gap-4 mt-4">
+  <div class="md:hidden flex flex-col gap-4 mt-4 w-full">
     <div
       v-for="(row, idx) in props.data"
       :key="idx"

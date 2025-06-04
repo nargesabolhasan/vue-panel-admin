@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-neutral_bg1 text-neutral_fg1_hover p-4">
+  <header class="bg-neutral_bg1 text-neutral_fg1_hover p-4 border-b">
     <nav class="flex justify-between text-neutral_fg1_hover">
       <span v-if="userStore.user">Welcome {{ userStore.user.username }}</span>
 
