@@ -32,7 +32,7 @@ const props = defineProps({
         <tr
           v-for="(row, idx) in props.data"
           :key="idx"
-          class="hover:bg-neutral_bg1_press transition"
+          class="hover:bg-neutral_bg1_press transition relative"
         >
           <td
             v-for="col in props.columns"

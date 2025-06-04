@@ -2,6 +2,7 @@
 import { ref, computed, h } from 'vue'
 import Pagination from '@/components/pagination/Pagination.vue'
 import Table from '@/components/table/Table.vue'
+import ContextMenu from '@/components/contextMenu/ContextMenu.vue'
 
 interface Article {
   id: number
@@ -43,24 +44,18 @@ const columns = [
     key: 'actions',
     label: 'Actions',
     render: (row: Article) =>
-      h('div', { class: 'flex gap-2' }, [
-        h(
-          'button',
+      h(ContextMenu, {
+        items: [
           {
-            class: 'text-blue-500 underline',
-            onClick: () => emit('edit-article', { ...row, title: row.title + ' (edited)' }),
+            title: 'Edit',
+            action: () => emit('edit-article', { ...row, title: row.title + ' (edited)' }),
           },
-          'Edit',
-        ),
-        h(
-          'button',
           {
-            class: 'text-red-500 underline',
-            onClick: () => emit('delete-article', row.id),
+            title: 'Delete',
+            action: () => emit('delete-article', row.id),
           },
-          'Delete',
-        ),
-      ]),
+        ],
+      }),
   },
 ]
 </script>

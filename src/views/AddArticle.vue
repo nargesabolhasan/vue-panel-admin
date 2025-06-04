@@ -5,7 +5,7 @@
         :titleField="titleField"
         :descriptionField="descriptionField"
         :bodyField="bodyField"
-        :loading="loading"
+        :loading="loading || editLoading"
         :meta="meta"
       />
       <TagCreator v-model="selectedTags" />
@@ -23,8 +23,10 @@ import { ARTICLES_API } from '@/constants/constant.ts'
 import { showToast } from '@/components/toast/ShowToast.ts'
 import { useRoute } from 'vue-router'
 import { onMounted } from 'vue'
+import type { Article } from '@/views/AllArticles.vue'
 
 const { loading, run } = useFetch<any>()
+const { loading: editLoading, run: runEdit } = useFetch<Article>()
 const route = useRoute()
 const articleId = route.params.id as string | undefined
 const isEditMode = !!articleId
@@ -81,26 +83,39 @@ onMounted(() => {
 })
 
 const submitAll = handleSubmit(async (values) => {
-  try {
-    await run(`${ARTICLES_API}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    })
-    resetForm({
-      values: {
-        title: '',
-        description: '',
-        body: '',
-        selectedTags: [],
-      },
-    })
-    selectedTags.value = []
-    showToast('success', 'Well done!', 'Article created successfully.')
-  } catch (err) {
-    showToast('success', 'Error', 'Article created failed!')
+  if (isEditMode) {
+    try {
+      await runEdit(`${ARTICLES_API}/${articleId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      })
+      showToast('success', 'Updated!', `This Article updated.`)
+    } catch (err) {
+      showToast('danger', 'Error!', 'Failed to update article.')
+    }
+  } else {
+    try {
+      await run(`${ARTICLES_API}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      })
+      resetForm({
+        values: {
+          title: '',
+          description: '',
+          body: '',
+          selectedTags: [],
+        },
+      })
+      selectedTags.value = []
+      showToast('success', 'Well done!', 'Article created successfully.')
+    } catch (err) {
+      showToast('success', 'Error', 'Article created failed!')
+    }
   }
 })
 </script>

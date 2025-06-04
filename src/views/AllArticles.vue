@@ -32,7 +32,7 @@ export interface Article {
 
 const { data: articles, loading, run } = useFetch<Article>()
 const { loading: deleteLoading, run: runDelete } = useFetch<Article>()
-const { loading: editLoading, run: runEdit } = useFetch<Article>()
+
 const router = useRouter()
 const showPrompt = usePrompt()
 
@@ -73,17 +73,5 @@ async function handleEdit(article: Article) {
     name: DASHBOARD_ROUTES_NAME.ADD_ARTICLE,
     params: { id: article.id },
   })
-
-  // try {
-  //   await runEdit(`${ARTICLES_API}/${article.id}`, {
-  //     method: 'PUT',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(article),
-  //   })
-  //   showToast('success', 'Updated!', `Article ${article.id} updated.`)
-  //   await fetchArticles()
-  // } catch (err) {
-  //   showToast('danger', 'Error!', 'Failed to update article.')
-  // }
 }
 </script>
